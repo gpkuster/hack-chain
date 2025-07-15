@@ -3,7 +3,7 @@ import { Wallet, ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 mt-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="glass rounded-3xl p-8 md:p-16 glass-hover">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">

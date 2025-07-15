@@ -3,7 +3,7 @@ import { Rocket, ArrowRight } from 'lucide-react';
 
 const CallToAction = () => {
   return (
-    <section id="dao" className="py-20 relative">
+    <section id="dao" className="pb-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="glass rounded-3xl p-8 md:p-16 text-center">
           <div className="max-w-4xl mx-auto">
