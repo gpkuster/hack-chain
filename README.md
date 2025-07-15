@@ -1,25 +1,53 @@
-# Welcome to Hack Chain
+# 🚀 Welcome to Hack Chain
 
-## To start the project
+**Hack Chain** is a web platform for issuing, validating, and tracing NFT-based certifications for ethical hacking and cybersecurity education. It uses blockchain to ensure transparent, immutable, and verifiable credentials.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📁 Branch Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- `main` – Production-ready, stable code.
+- `develop` – Active development branch. **Create your branches off this one**.
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+## 🛠️ Getting Started
+
+To contribute locally, follow these steps:
+
+### ✅ Prerequisites
+- Node.js & npm installed — [Use NVM](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Git installed
+
+### 🚨 Clone & Setup
+
+```bash
+# 1. Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Move into the project folder
+cd hack-chain
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Run the dev server
 npm run dev
 ```
+
+## 🌱 How to Contribute
+
+We're a small but passionate team, and we love collaborating!
+
+- 📄 Please **[read the CONTRIBUTING guide](./CONTRIBUTING.md)** to get started.
+- Always create a branch from `develop` before starting any feature or fix.
+- Pull Requests should also be opened **into `develop`**.
+
+
+## 💬 Community & Support
+
+- 📢 **[Join us on Discord](https://discord.gg/hDWrxKSN)** – Real-time discussion, help, and collaboration.
+- 📱 **[Chat with us on Telegram](https://t.me/hackchaincommunity)** – Stay updated and meet the team.
+
+We welcome beginners, questions, feedback, and contributors of all skill levels!
+
