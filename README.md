@@ -45,7 +45,6 @@ We're a small but passionate team, and we love collaborating!
 - Always create a branch from `develop` before starting any feature or fix.
 - Pull Requests should also be opened **into `develop`**.
 
-
 ## 💬 Community & Support
 
 - 📢 **[Join us on Discord](https://discord.gg/hDWrxKSN)** – Real-time discussion, help, and collaboration.
