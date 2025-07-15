@@ -31,9 +31,11 @@ cd hack-chain
 # 3. Install dependencies
 npm install
 
-# 4. Run the dev server
+# 4. Run the dev server (inside frontend/)
+cd frontend
 npm run dev
 ```
+Note: Backend and smart contracts have their own package.json, install and run them separately.
 
 ## 🌱 How to Contribute
 

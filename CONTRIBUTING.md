@@ -21,6 +21,18 @@ Whether you're fixing bugs, improving the UI, writing docs, or just reporting is
 - `main`: production-ready code
 - `develop`: where all new features go first
 
+### 📂 Folder Breakdown
+
+| Folder        | Description |
+|---------------|-------------|
+| **`/frontend`**   | Frontend interface built with React + Vite. Handles wallet connection, user UI, and interaction with smart contracts via `ethers.js` or `wagmi`. |
+| **`/backend`**    | Node.js backend (Express). Verifies wallet signatures, handles login, interacts with the blockchain, stores metadata, and integrates IPFS. |
+| **`/contracts`**  | Smart contracts written in Solidity. Deployed with Foundry. Includes scripts for deployment and testing. |
+| **`/shared`**     | Optional folder for shared utilities (e.g., constants, helpers) used across the project. |
+| **`/docs`**       | Project documentation, architecture diagrams, API specs, and technical planning. |
+
+---
+
 ### 🌿 Create a Branch
 
 Always branch off from `develop`:
