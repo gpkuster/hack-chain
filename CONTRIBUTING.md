@@ -112,7 +112,6 @@ If you ever get stuck or just want to chat:
 - 💬 **[Join our Discord](https://discord.gg/hDWrxKSN)** – Collaborate, ask questions, and hang out.
 - 📱 **[Chat on Telegram](https://t.me/hackchaincommunity)** – Stay connected and get updates.
 
-
 ## 👤 Team
 
 **Ricardo Muchacho**  
