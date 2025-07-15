@@ -15,6 +15,46 @@ Whether you're fixing bugs, improving the UI, writing docs, or just reporting is
 
 ---
 
+## 🌍 External Contributors – Fork & PR
+
+If you’re not a collaborator yet, you can still contribute via fork:
+
+1. **Fork the repository**  
+   Click the **Fork** button on the GitHub repo.
+
+2. **Clone your fork locally**
+   ```bash
+   git clone https://github.com/your-username/hack-chain.git
+   ```
+
+3. **Create a feature branch from `develop`**
+   ```bash
+   git checkout -b feature/my-contribution
+   ```
+
+4. **Make your changes, commit, and push**
+   ```bash
+   git push origin feature/my-contribution
+   ```
+
+5. **Open a Pull Request**  
+   Open a PR into the main repo’s `develop` branch.
+
+
+> ✅ **We welcome contributions from the community!**  
+> Just make sure your PR is clear and focused.
+
+---
+
+## 🤝 Want to Become a Collaborator?
+
+We’re always looking for reliable contributors to join the team!
+
+If you’ve made consistent, helpful contributions or want to take a more active role:
+
+- 📬 Message **Ricardo Muchacho** or reach out on [Discord](https://discord.gg/hDWrxKSN) to request collaborator access.
+- Let us know what you’d like to help with!
+
 ## 📌 How We Work
 
 ### 🔀 Branches
