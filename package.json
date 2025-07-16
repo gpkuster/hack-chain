@@ -1,0 +1,32 @@
+{
+  "name": "hack-chain-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo for Hack Chain: blockchain-based cybersecurity certification platform.",
+  "author": "Hack Chain Team",
+  "license": "MIT",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts"
+  ],
+  "scripts": {
+    "bootstrap": "npm install --workspaces --include-workspace-root false",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:contracts": "npm run dev --workspace=contracts",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "build:contracts": "npm run build --workspace=contracts",
+    "lint": "npm run lint --workspaces",
+    "format": "npm run format --workspaces"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RicardoMuchacho/hack-chain"
+  }
+} 
