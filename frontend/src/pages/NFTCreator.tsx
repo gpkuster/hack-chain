@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import ProfileCard from '@/components/ProfileCard/ProfileCard';
 
 const NFTCreator = () => {
   const [form, setForm] = useState({
@@ -23,7 +24,18 @@ const NFTCreator = () => {
       <main className="flex flex-col md:flex-row items-center justify-center min-h-[80vh] px-12 pt-16 my-8">
         {/* NFT Preview */}
         <section className="w-full md:w-1/2 flex justify-center mb-8 md:mb-0">
-          <div className="bg-white/10 border border-white/20 rounded-xl shadow-lg p-6 w-full max-w-md">
+            <ProfileCard
+                name={form.certificateTitle || 'Certificate Title'}
+                title={form.studentName || 'Student Name'}
+                handle="javicodes"
+                status="Online"
+                contactText="Contact Me"
+                avatarUrl="/path/to/avatar.jpg"
+                showUserInfo={true}
+                enableTilt={true}
+                onContactClick={() => console.log('Contact clicked')}
+            />
+          {/* <div className="bg-white/10 border border-white/20 rounded-xl shadow-lg p-6 w-full max-w-md">
             <div className="text-center mb-4">
               <span className="text-lg font-semibold gradient-text">NFT Certificate Preview</span>
             </div>
@@ -41,7 +53,7 @@ const NFTCreator = () => {
                 Date: {form.date || 'YYYY-MM-DD'}
               </div>
             </div>
-          </div>
+          </div> */}
         </section>
         {/* Form */}
         <section className="w-full md:w-1/2 flex justify-center">
