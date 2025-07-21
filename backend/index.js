@@ -1,34 +1,64 @@
-const { PinataSDK } = require("pinata")
-const fs = require("fs")
-const { Blob } = require("buffer")
-require("dotenv").config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const { PinataSDK } = require("pinata");
+require("dotenv").config();
+
+const app = express();
+const port = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(bodyParser.json());
 
 const pinata = new PinataSDK({
   pinataJwt: process.env.PINATA_JWT,
-  pinataGateway: process.env.GATEWAY_URL
-})
+  pinataGateway: process.env.GATEWAY_URL,
+});
 
-async function upload(){
+const defaultCertificateCID = "bafybeibmeqeia5ta52vxbapor5mkens2uwau2xsy6oetrf6prlcfssm5le";
+
+// POST /api/certificates: Upload certificate metadata to Pinata
+app.post("/api/certificates", async (req, res) => {
   try {
-    const blob = new Blob([fs.readFileSync("./hello-world.txt")]);
-    const file = new File([blob], "hello-world.txt", { type: "text/plain"})
-    const upload = await pinata.upload.public.file(file);
-    console.log(upload)
-  } catch (error) {
-    console.log(error)
-  }
-}
+    const { name, course, professor, date, imageCID } = req.body;
 
-upload()
-
-
-async function main() {
-    try {
-      const file = await pinata.gateways.public.get("bafkreidznign2eh4fyvcul2d3llin4zdkjppsoeus75ntxifohp344tjnu")
-      console.log(file.data)
-    } catch (error) {
-      console.log(error);
+    if (!name || !course || !professor || !date || !imageCID) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
+    const metadata = {
+      name: `Certificate for ${name}`,
+      description: `${course} impartido por ${professor}`,
+      image: `ipfs://${defaultCertificateCID}`,
+      attributes: [
+        { trait_type: "Student", value: name },
+        { trait_type: "Course", value: course },
+        { trait_type: "Professor", value: professor },
+        { trait_type: "Date", value: date },
+      ],
+    };
+    const result = await pinata.upload.public.json(metadata, {
+        pinataMetadata: { name: `Certificate for ${name}` },
+      });
+      res.json({ cid: result.cid, pinata: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to upload metadata" });
   }
-  
-  main()
+});
+
+// GET /api/certificates/:cid: Fetch certificate metadata from Pinata
+app.get("/api/certificates/:cid", async (req, res) => {
+  try {
+    const { cid } = req.params;
+    if (!cid) return res.status(400).json({ error: "CID is required" });
+    const file = await pinata.gateways.public.get(cid);
+    res.json(file.data);
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ error: "Metadata not found" });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
