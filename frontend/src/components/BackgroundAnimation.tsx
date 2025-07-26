@@ -20,7 +20,7 @@ const BackgroundAnimation = () => {
       </div>
       
       {/* Floating Particles */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         {Array.from({ length: 20 }).map((_, i) => (
           <div
             key={i}
@@ -33,7 +33,7 @@ const BackgroundAnimation = () => {
             }}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
