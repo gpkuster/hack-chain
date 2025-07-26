@@ -61,4 +61,16 @@ contract HackCertificate is ERC721, Ownable {
     function _exists(uint256 tokenId) internal view returns (bool) {
         return _ownerOf(tokenId) != address(0);
     }
+
+    function revokeCertificate(uint256 tokenId) external {
+        require(owner() == msg.sender || certificates[tokenId].issuer == msg.sender,
+        "Not authorized to revoke");
+        
+        require(_exists(tokenId), "Certificate does not exist");
+
+        delete certificates[tokenId];
+
+        _burn(tokenId);
+
+    }
 }
