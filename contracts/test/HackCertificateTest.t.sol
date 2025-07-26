@@ -74,4 +74,22 @@ contract HackCertificateTest is Test {
         vm.expectRevert();
         hackCertificate.revokeIssuer(authorizedIssuer);
     }
+
+    function testShouldRevokeCertificate() public {
+   
+    vm.startPrank(authorizedIssuer);
+    uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+    vm.stopPrank();
+    assertEq(tokenId1, 1);
+
+    
+    vm.startPrank(authorizedIssuer);
+    hackCertificate.revokeCertificate(tokenId1);
+    vm.stopPrank();
+
+    
+    vm.expectRevert("Certificate does not exist");
+    hackCertificate.verifyCertificate(tokenId1);
+}
+
 }

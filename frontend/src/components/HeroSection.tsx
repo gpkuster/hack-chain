@@ -26,13 +26,16 @@ const HeroSection = () => {
               Connect Wallet
             </Button>
             
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
               className="glass-hover border-white/20 text-lg px-8 py-4"
             >
-              Learn More
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <a href="/nft-creator">
+                Try NFT Creator
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </Button>
           </div>
           
