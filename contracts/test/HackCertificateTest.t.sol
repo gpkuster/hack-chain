@@ -18,6 +18,7 @@ contract HackCertificateTest is Test {
     address public authorizedIssuer = vm.addr(3);
     address public unauthorizedIssuer = vm.addr(4);
     address public randomStudent = vm.addr(5);
+    address public randomStudent2 = vm.addr(6);
 
     // Functions
     function setUp() public {
@@ -131,5 +132,54 @@ contract HackCertificateTest is Test {
     vm.expectRevert("Certificate does not exist");
     hackCertificate.verifyCertificate(tokenId1);
 }
+
+    /**
+     * Used to verify that the certificate is not revoked if the educator is not authorized
+     */
+
+    function testShouldNotRevokeCertificate() public {
+   
+    vm.startPrank(authorizedIssuer);
+    uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+    vm.stopPrank();
+    assertEq(tokenId1, 1);
+
+    
+    vm.startPrank(unauthorizedIssuer);
+    
+    vm.expectRevert();
+    hackCertificate.revokeCertificate(tokenId1);
+    vm.stopPrank();
+
+}
+
+    /**
+     * Used to verify that the student cannot transfer their certificate
+     */
+
+    function testStudentCanNotTransferHisCertificate() public {
+        vm.startPrank(authorizedIssuer);
+        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        uint256 tokenId2 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Quality Assurance");
+        vm.stopPrank();
+        assertEq(1, tokenId1);
+        assertEq(2, tokenId2);
+
+        vm.startPrank(randomStudent);
+        vm.expectRevert();
+        hackCertificate.transferFrom(msg.sender, randomStudent2, tokenId1);
+        vm.stopPrank();  
+
+        vm.startPrank(randomStudent);
+        vm.expectRevert();
+        hackCertificate.safeTransferFrom(msg.sender, randomStudent2, tokenId2);
+        vm.stopPrank();   
+
+        vm.startPrank(randomStudent);
+        vm.expectRevert();
+        hackCertificate.safeTransferFrom(msg.sender, randomStudent2, tokenId2, bytes("Test"));
+        vm.stopPrank();          
+
+    }   
 
 }
