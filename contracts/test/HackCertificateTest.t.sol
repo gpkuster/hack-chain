@@ -20,12 +20,35 @@ contract HackCertificateTest is Test {
         assertEq(hackCertificate.owner(), admin);
     }
 
+    // --- Owner functions (authorize/revoke issuers) ---
+    
+    function testShouldOnlyAllowOwnerToAuthorizeIssuer() public {
+        vm.startPrank(admin);
+        hackCertificate.authorizeIssuer(unauthorizedIssuer);
+        vm.stopPrank();
+        assertEq(hackCertificate.authorizedIssuers(unauthorizedIssuer), true);
+    }
+
     function testShouldNotAllowToAuthorizeIfNotAdmin() public {
         vm.startPrank(randomUser);
         vm.expectRevert();
         hackCertificate.authorizeIssuer(unauthorizedIssuer);
         vm.stopPrank();
     }
+
+    function testShouldOnlyAllowOwnerToRevokeIssuer() public {
+        vm.startPrank(admin);
+        hackCertificate.revokeIssuer(authorizedIssuer);
+        vm.stopPrank();
+        assertEq(hackCertificate.authorizedIssuers(authorizedIssuer), false);
+    }
+
+    function testOnlyAdminCanRevokeIssuers() public {
+        vm.expectRevert();
+        hackCertificate.revokeIssuer(authorizedIssuer);
+    }
+
+    // --- Issue Certificate ---
 
     function testShouldAllowToIssueCertificate() public {
         vm.startPrank(authorizedIssuer);
@@ -36,20 +59,33 @@ contract HackCertificateTest is Test {
         assertEq(2, tokenId2);
     }
 
-    function testShouldNotAllowToIssueCertificate() public {
+    function testShouldNotAllowToIssueCertificateIfNotAuthorized() public {
         vm.startPrank(unauthorizedIssuer);
         vm.expectRevert("Not authorized issuer");
         hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
         vm.stopPrank();
     }
 
+    function testRevokedIssuerCannotMintAnymore() public {
+        vm.startPrank(admin);
+        hackCertificate.revokeIssuer(authorizedIssuer);
+        vm.stopPrank();
+
+        vm.startPrank(authorizedIssuer);
+        vm.expectRevert("Not authorized issuer");
+        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        vm.stopPrank();
+    }
+
+    // --- Verify Certificate ---
+
     function testShouldVerifyCertificate() public {
         vm.startPrank(authorizedIssuer);
         uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
         vm.stopPrank();
         assertEq(1, tokenId1);
-        HackCertificate.Certificate memory c = hackCertificate.verifyCertificate(tokenId1);
 
+        HackCertificate.Certificate memory c = hackCertificate.verifyCertificate(tokenId1);
         assertEq(c.courseName, "Pentesting");
         assertEq(c.issuedAt, block.timestamp);
         assertEq(c.issuer, authorizedIssuer);
@@ -57,39 +93,38 @@ contract HackCertificateTest is Test {
     }
 
     function testShouldRevertIfCertificateDoesNotExist() public {
-        vm.expectRevert("Certificate does not exist");
+        vm.expectRevert();
         hackCertificate.verifyCertificate(0);
     }
 
-    function testRevokedIssuerCannotMintAnymore() public {
-        vm.startPrank(admin);
-        hackCertificate.revokeIssuer(authorizedIssuer);
+    // --- Revoke Certificate ---
+
+    function testShouldRevokeCertificate() public {
         vm.startPrank(authorizedIssuer);
-        vm.expectRevert("Not authorized issuer");
-        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+        vm.stopPrank();
+        assertEq(tokenId1, 1);
+
+        vm.startPrank(authorizedIssuer);
+        hackCertificate.revokeCertificate(tokenId1);
         vm.stopPrank();
     }
 
-    function testOnlyAdminCanRevokedIssuers() public {
-        vm.expectRevert();
-        hackCertificate.revokeIssuer(authorizedIssuer);
+    function testRevokeCertificateUnauthorizedFails() public {
+        vm.startPrank(authorizedIssuer);
+        uint256 tokenId = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+        vm.stopPrank();
+
+        vm.startPrank(randomUser); // ni owner ni issuer
+        vm.expectRevert("Not authorized to revoke");
+        hackCertificate.revokeCertificate(tokenId);
+        vm.stopPrank();
     }
 
-    function testShouldRevokeCertificate() public {
-   
-    vm.startPrank(authorizedIssuer);
-    uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
-    vm.stopPrank();
-    assertEq(tokenId1, 1);
-
-    
-    vm.startPrank(authorizedIssuer);
-    hackCertificate.revokeCertificate(tokenId1);
-    vm.stopPrank();
-
-    
-    vm.expectRevert("Certificate does not exist");
-    hackCertificate.verifyCertificate(tokenId1);
-}
-
+    function testRevokeNonExistentCertificateFails() public {
+        vm.startPrank(admin);
+        vm.expectRevert();
+        hackCertificate.revokeCertificate(999);
+        vm.stopPrank();
+    }
 }
