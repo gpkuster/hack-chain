@@ -52,8 +52,8 @@ contract HackCertificateTest is Test {
 
     function testShouldAllowToIssueCertificate() public {
         vm.startPrank(authorizedIssuer);
-        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
-        uint256 tokenId2 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Quality Assurance");
+        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting", "tokenUri");
+        uint256 tokenId2 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Quality Assurance", "tokenUri");
         vm.stopPrank();
         assertEq(1, tokenId1);
         assertEq(2, tokenId2);
@@ -62,7 +62,7 @@ contract HackCertificateTest is Test {
     function testShouldNotAllowToIssueCertificateIfNotAuthorized() public {
         vm.startPrank(unauthorizedIssuer);
         vm.expectRevert("Not authorized issuer");
-        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting", "tokenUri");
         vm.stopPrank();
     }
 
@@ -73,7 +73,7 @@ contract HackCertificateTest is Test {
 
         vm.startPrank(authorizedIssuer);
         vm.expectRevert("Not authorized issuer");
-        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting", "tokenUri");
         vm.stopPrank();
     }
 
@@ -81,7 +81,7 @@ contract HackCertificateTest is Test {
 
     function testShouldVerifyCertificate() public {
         vm.startPrank(authorizedIssuer);
-        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
+        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting", "tokenUri");
         vm.stopPrank();
         assertEq(1, tokenId1);
 
@@ -101,7 +101,7 @@ contract HackCertificateTest is Test {
 
     function testShouldRevokeCertificate() public {
         vm.startPrank(authorizedIssuer);
-        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity", "tokenUri");
         vm.stopPrank();
         assertEq(tokenId1, 1);
 
@@ -112,7 +112,7 @@ contract HackCertificateTest is Test {
 
     function testRevokeCertificateUnauthorizedFails() public {
         vm.startPrank(authorizedIssuer);
-        uint256 tokenId = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
+        uint256 tokenId = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity", "tokenUri");
         vm.stopPrank();
 
         vm.startPrank(randomUser); // ni owner ni issuer
@@ -127,4 +127,18 @@ contract HackCertificateTest is Test {
         hackCertificate.revokeCertificate(999);
         vm.stopPrank();
     }
+
+    function testTokenURIShouldReturnCorrectValue() public {
+        vm.startPrank(authorizedIssuer);
+        uint256 tokenId = hackCertificate.issueCertificate(randomStudent, "Alice", "Blockchain", "ipfs://exampleCID");
+        vm.stopPrank();
+
+        string memory uri = hackCertificate.tokenURI(tokenId);
+        assertEq(uri, "ipfs://exampleCID");
+    }
+
+    function testTokenURIRevertsIfNonExistentToken() public {
+        vm.expectRevert();
+        hackCertificate.tokenURI(999);
+    }    
 }
