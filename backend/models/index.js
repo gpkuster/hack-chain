@@ -17,5 +17,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require("./users")(sequelize, DataTypes);
+db.Issuer = require("./issuers")(sequelize, DataTypes);
+db.Recruiter = require("./recruiters")(sequelize, DataTypes);
 
 module.exports = db;

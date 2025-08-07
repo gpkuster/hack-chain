@@ -14,11 +14,15 @@ app.use(bodyParser.json());
 
 // Import routes
 const certificatesRouter = require("./routes/certificates");
-const authRouter = require("./routes/auth");
+const userRouter = require("./routes/users");
+const issuerRouter = require("./routes/issuers");
+const recruiterRouter = require("./routes/recruiters");
 
 // Use routes
 app.use("/api/certificates", certificatesRouter);
-app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+app.use("/api/issuer", issuerRouter);
+app.use("/api/recruiter", recruiterRouter);
 
 // Sync DB and start server
 db.sequelize.sync().then(() => {

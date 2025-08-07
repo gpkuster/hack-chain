@@ -1,18 +1,15 @@
 const bcrypt = require("bcrypt");
 
+// TODO: Add functionality for counting how many students has a recruiter contacted
+
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const Recruiter = sequelize.define("Recruiter", {
     name: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
     },
     lastName: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    age: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
@@ -25,22 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     passwordHash: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    walletAddress: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    privateKey: {
-      type: DataTypes.STRING,
-      allowNull: false
     }
   });
 
   // Hash password before saving
-  User.beforeCreate(async (user) => {
+  Recruiter.beforeCreate(async (recruiter) => {
     const salt = await bcrypt.genSalt(10);
-    user.passwordHash = await bcrypt.hash(user.passwordHash, salt);
+    recruiter.passwordHash = await bcrypt.hash(recruiter.passwordHash, salt);
   });
 
-  return User;
+  return Recruiter;
 };
