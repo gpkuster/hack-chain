@@ -33,6 +33,12 @@ When a new user registers on HackChain, the backend automatically creates a **ne
     ```
     This approach allows each user to have their own blockchain wallet without needing to manually create one or manage private keys, while keeping the process safe for testnet usage.
 
+4. **User types**
+There are three types of users that can be registered through this backend
+  - **Student:** Can get certificates.
+  - **Issuer:** An academic institution that issues certificates to the students.
+  - **Recruiter:** Can see students' certificates.
+
 ### Pinata connection
 When posting a certificate through this app's API, it will connect to your pinata account and store the tokenURI there. Follow the instructions below for connecting with pinata by filling the `.env` file.
 
