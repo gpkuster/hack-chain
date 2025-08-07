@@ -35,9 +35,9 @@ When a new user registers on HackChain, the backend automatically creates a **ne
 
 4. **User types**
 There are three types of users that can be registered through this backend
-  - **Student:** Can get certificates.
-  - **Issuer:** An academic institution that issues certificates to the students.
-  - **Recruiter:** Can see students' certificates.
+   - **Student:** Can get certificates.
+   - **Issuer:** An academic institution that issues certificates to the students.
+   - **Recruiter:** Can see students' certificates.
 
 ### Pinata connection
 When posting a certificate through this app's API, it will connect to your pinata account and store the tokenURI there. Follow the instructions below for connecting with pinata by filling the `.env` file.
