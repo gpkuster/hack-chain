@@ -1,18 +1,8 @@
 const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const Issuer = sequelize.define("Issuer", {
     name: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false
-    },
-    age: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false
@@ -37,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // Hash password before saving
-  User.beforeCreate(async (user) => {
+  Issuer.beforeCreate(async (issuer) => {
     const salt = await bcrypt.genSalt(10);
-    user.passwordHash = await bcrypt.hash(user.passwordHash, salt);
+    issuer.passwordHash = await bcrypt.hash(issuer.passwordHash, salt);
   });
 
-  return User;
+  return Issuer;
 };
