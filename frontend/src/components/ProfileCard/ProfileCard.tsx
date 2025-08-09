@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import "./ProfileCard.css";
 import { Award } from "lucide-react";
-import placeholderLogo from "../../../public/images/placeholderLogo.png";
-import hackChainLogo from "../../../public/images/logoHackChain.png";
-import sealLogo from "../../../public/images/certificateSeal.png";
+import placeholderLogo from "/images/placeholderLogo.png";
+import hackChainLogo from "/images/logoHackchain.png";
+import sealLogo from "/images/certificateSeal.png";
 
 interface ProfileCardProps {
   iconUrl?: string;
