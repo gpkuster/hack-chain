@@ -2,14 +2,16 @@
 
 **Hack Chain** is a web platform for issuing, validating, and tracing NFT-based certifications for ethical hacking and cybersecurity education. It uses blockchain to ensure transparent, immutable, and verifiable credentials.
 
----
-
 ## 📁 Branch Structure
 
 - `main` – Production-ready, stable code.
 - `develop` – Active development branch. **Create your branches off this one**.
 
----
+## 📁 Project Structure
+
+- `/frontend` – Find it's README.md [here](./frontend/README.md).
+- `/backend` – Allows interaction between frontend and deployed smart contract by using ether.js library. Find it's README.md [here](./backend/README.md).
+- `/contracts` - Contains the base smart contract, it's testing, and soon, a script for deploying the smart contact to some network. Find it's README.md [here](./contracts/README.md).
 
 ## 🛠️ Getting Started
 
