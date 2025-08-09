@@ -120,6 +120,7 @@ All colors MUST be HSL.
 @layer utilities {
   .glass {
     background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
   }
