@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import "./CertificateCard.css";
-import { Award } from "lucide-react";
-import placeholderLogo from "/images/placeholderLogo.png";
+// import { Award } from "lucide-react";
+import GradientText from "./GradientText.tsx";
 
 interface CertificateCardProps {
   iconUrl?: string;
@@ -267,16 +267,21 @@ const CertificateCardComponent: React.FC<CertificateCardProps> = ({
           <div className="pc-details">
               {/* Header Section */}
               <div className="flex justify-between px-10 items-start">
-                <div className="flex flex-col gap-2 max-w-[80%]">
+                <div className="flex flex-col max-w-[80%]">
                   <p className="text-sm text-gray-400">{certificateType}</p>
-                  <h3 className="text-2xl font-semibold line-clamp-2 break-words">
-                    {title}
-                  </h3>
+                  <GradientText
+                    text={title}
+                    fontSize={28}
+                    fontWeight={700}
+                    className="w-full"
+                    gradientStops={[
+                      { offset: 0, color: "#ffffff" },
+                      { offset: 1, color: "#6f6fbe" },
+                    ]}
+                  />
                 </div>
-                <div className="">
                   {/* <Award size={"48px"} color="gray"/> */}
-                  <img src={sealLogo} alt="Seal" className="w-16 h-16 border-radius-full" />
-                </div>
+                  <img src={sealLogo} alt="Seal" className="absolute -top-2 right-0 w-16 h-16 border-radius-full" />
               </div>
               <hr className="mx-10 mt-4"/>     
             <div className="flex flex-col gap-2 p-6">
@@ -284,18 +289,45 @@ const CertificateCardComponent: React.FC<CertificateCardProps> = ({
               <div className="flex justify-between">
                 <div className="pc-section w-1/2 pr-2">
                   <p className="text-sm text-gray-400">Awarded To</p>
-                  <p className="pc-details-large">{name}</p>
+                  <GradientText
+                    text={name}
+                    fontSize={24}
+                    fontWeight={700}
+                    className="w-fit"
+                    gradientStops={[
+                      { offset: 0, color: "#ffffff" },
+                      { offset: 1, color: "#4a4ac0" },
+                    ]}
+                  />
                 </div>
                 <div className="pc-section w-1/2 pl-2">
                   <p className="text-sm text-gray-400">Issue Date</p>
-                  <p className="pc-details-large">{issueDate}</p>
+                  <GradientText
+                    text={issueDate}
+                    fontSize={24}
+                    fontWeight={700}
+                    className="w-fit"
+                    gradientStops={[
+                      { offset: 0, color: "#ffffff" },
+                      { offset: 1, color: "#4a4ac0" },
+                    ]}
+                  />
                 </div>
               </div>
               {/* Second Row: Issuer and Logo */}
               <div className="flex justify-between items-center pt-2">
                 <div className="pc-section w-1/2 pr-2">
                   <p className="text-sm text-gray-400">Issued By</p>
-                  <p className="pc-details-large">{issuer}</p>
+                  <GradientText
+                    text={issuer}
+                    fontSize={24}
+                    fontWeight={700}
+                    className="w-fit"
+                    gradientStops={[
+                      { offset: 0, color: "#ffffff" },
+                      { offset: 1, color: "#4a4ac0" },
+                    ]}
+                  />
                 </div>
                 {logoUrl ? (
                   <div className="w-1/2 pl-2 flex justify-start">
