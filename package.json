@@ -14,10 +14,11 @@
     "bootstrap": "npm install --workspaces --include-workspace-root false",
     "dev:frontend": "npm run dev --workspace=frontend",
     "dev:backend": "npm run dev --workspace=backend",
-    "dev:contracts": "npm run dev --workspace=contracts",
+    "dev:contracts": "forge build --root ./contracts",
     "build:frontend": "npm run build --workspace=frontend",
     "build:backend": "npm run build --workspace=backend",
-    "build:contracts": "npm run build --workspace=contracts",
+    "build:contracts": "forge build --root ./contracts",
+    "coverage:contracts": "forge coverage --root ./contracts",
     "lint": "npm run lint --workspaces",
     "format": "npm run format --workspaces"
   },
