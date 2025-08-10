@@ -34,7 +34,7 @@ MNEMONIC="${newWallet.mnemonic.phrase}"`;
   // Send ETH to new wallet
   const tx = await senderWallet.sendTransaction({
     to: newWallet.address,
-    value: ethers.parseEther("0.001") // Adjust amount if needed
+    value: ethers.parseEther("0.00001") // Adjust amount if needed
   });
 
   console.log(`🚀 Sending 0.01 ETH to ${newWallet.address}...`);
