@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import ProfileCard from '@/components/ProfileCard/ProfileCard';
+import CertificateCard from '@/components/CertificateCard/CertificateCard';
 
 const NFTCreator = () => {
   const [form, setForm] = useState({
@@ -36,7 +36,7 @@ const NFTCreator = () => {
       <main className="min-h-screen flex flex-col md:flex-row items-center justify-center px-12 pt-8">
         {/* NFT Preview */}
         <section className="w-full md:w-1/2 flex justify-center mb-8 md:mb-0">
-            <ProfileCard
+            <CertificateCard
                 certificateType={form.certificateType || "Certificate of Completion"}
                 name={'Student Name'}
                 title={form.certificateTitle || 'Certificate Title'}
@@ -108,7 +108,7 @@ const NFTCreator = () => {
               )}
             </div>
             <Button type="submit" className="w-full mt-4">
-              Mint NFT
+              Download Certificate
             </Button>
           </form>
         </section>
