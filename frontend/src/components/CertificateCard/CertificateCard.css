@@ -187,10 +187,9 @@
 .pc-details {
   width: 100%;
   position: relative;
-  top: 2em;
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: 24px 12px;
 }
 
 .pc-section {
@@ -202,31 +201,25 @@
     margin: 0px 16px;
 }
 
+/* Title gradient now rendered with SVG; keep layout-only rules */
 .pc-details h3 {
   margin-top: 0px;
+  height: 48px;
   padding-top: 0px;
   font-weight: 600;
   font-size: min(5svh, 3em);
-  background-image: linear-gradient(to bottom, #fff, #6f6fbe);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
   text-align: left;
   border-radius: 0px;
 }
 
+/* Default labels use plain color, gradient text is handled by SVG component */
 .pc-details p {
   font-weight: 600;
   position: relative;
   white-space: nowrap;
-  font-size: 16px;
-  width: min-content;
-  background-image: linear-gradient(to bottom, #fff, #4a4ac0);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  font-size: 14px;
+  width: fit-content;
+  color: #9ca3af; /* Tailwind gray-400 approximation for safety in export */
   border-radius: 0px;
 }
 
