@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { ethers } = require("ethers");
-const { User } = require("../models");
+const { Student } = require("../models");
 
-// POST /api/user/register
+// POST /api/student/register
 router.post("/register", async (req, res) => {
   try {
     const { email, password, name, lastName, age } = req.body;
@@ -23,16 +23,16 @@ router.post("/register", async (req, res) => {
     if (!age)
       return res.status(400).json({ error: "Age required" });
 
-    // Check if user already exists
-    const existing = await User.findOne({ where: { email } });
+    // Check if student already exists
+    const existing = await Student.findOne({ where: { email } });
     if (existing)
-      return res.status(409).json({ error: "User already registered" });
+      return res.status(409).json({ error: "Student already registered" });
 
     // Generate wallet
     const newWallet = ethers.Wallet.createRandom();
 
-    // Save user with hashed password
-    const newUser = await User.create({
+    // Save student with hashed password
+    const newStudent = await Student.create({
       name,
       lastName,
       age,
@@ -43,18 +43,18 @@ router.post("/register", async (req, res) => {
     });
 
     res.status(201).json({ 
-      message: "User registered", 
-      user: {
-        name: newUser.name,
-        lastName: newUser.lastName,
-        age: newUser.age,
-        email: newUser.email,
-        walletAddress: newUser.walletAddress
+      message: "Student registered", 
+      student: {
+        name: newStudent.name,
+        lastName: newStudent.lastName,
+        age: newStudent.age,
+        email: newStudent.email,
+        walletAddress: newStudent.walletAddress
       }
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to register user" });
+    res.status(500).json({ error: "Failed to register student" });
   }
 });
 
