@@ -14,13 +14,13 @@ app.use(bodyParser.json());
 
 // Import routes
 const certificatesRouter = require("./routes/certificates");
-const userRouter = require("./routes/users");
+const studentRouter = require("./routes/students");
 const issuerRouter = require("./routes/issuers");
 const recruiterRouter = require("./routes/recruiters");
 
 // Use routes
 app.use("/api/certificates", certificatesRouter);
-app.use("/api/user", userRouter);
+app.use("/api/student", studentRouter);
 app.use("/api/issuer", issuerRouter);
 app.use("/api/recruiter", recruiterRouter);
 
