@@ -1,18 +1,10 @@
-// License
 // SPDX-License-Identifier: MIT
-
-// Compiler Solidity version
 pragma solidity ^0.8.24;
 
-// Libraries
 import "../lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
 import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 import "../lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
-// Contract
-contract HackCertificate is ERC721, Ownable {
-    
-    // Variables
 /// @title Hack Certificate NFT
 /// @notice This contract issues verifiable hackathon certificates as ERC721 tokens.
 /// @dev Only authorized issuers can mint certificates. Certificates can be revoked by the issuer or owner.
@@ -45,13 +37,6 @@ contract HackCertificate is ERC721, Ownable {
     /// @notice Mapping to track addresses authorized to issue certificates.
     mapping(address => bool) public authorizedIssuers;
 
-    // Events
-    event CertificateIssued(uint256 tokenId, address indexed issuer, address indexed student);
-
-    // Constructor
-    constructor() ERC721("Hack Certificate", "HACKCERT") Ownable(msg.sender) {}
-
-    // Modifiers
     // --- Events ---
 
     /// @notice Emitted when a certificate is issued.
@@ -73,13 +58,6 @@ contract HackCertificate is ERC721, Ownable {
         _;
     }
 
-    // Functions
-
-    /**
-     * Used to authorize an educator to issue certificates
-     * @param issuer The public address of the educator
-     */
-
     // --- Admin functions ---
 
     /// @notice Authorizes an address to issue certificates.
@@ -88,23 +66,11 @@ contract HackCertificate is ERC721, Ownable {
         authorizedIssuers[issuer] = true;
     }
 
-    /**
-     * Used to remove permission to issue certificates to an educator
-     * @param issuer The public address of the educator
-     */
-
     /// @notice Revokes authorization for an issuer.
     /// @param issuer Address to revoke.
     function revokeIssuer(address issuer) external onlyOwner {
         authorizedIssuers[issuer] = false;
     }
-
-    /**
-     * Used to issue the certificate
-     * @param to Student public address
-     * @param studentName Student name
-     * @param courseName Name of the accredited course
-     */
 
     // --- Issuer functions ---
 
@@ -136,11 +102,6 @@ contract HackCertificate is ERC721, Ownable {
         emit CertificateIssued(newId, msg.sender, to);
     }
 
-    /**
-     * Used to verify that a certificate exists correctly on the blockchain
-     * @param tokenId Identifier of the certificate issued to the student
-     */
-
     // --- Public view functions ---
 
     /// @notice Verifies a certificate by token ID.
@@ -150,20 +111,6 @@ contract HackCertificate is ERC721, Ownable {
         _requireOwned(tokenId);
         return certificates[tokenId];
     }
-
-    /**
-     * Used to verify that the certificate belongs to a student
-     * @param tokenId Identifier of the certificate issued to the student
-     */
-
-    function _exists(uint256 tokenId) internal view returns (bool) {
-        return _ownerOf(tokenId) != address(0);
-    }
-
-    /**
-     * Used to burn a certificate that has not been issued correctly or there is some other problem with it
-     * @param tokenId Identifier of the certificate issued to the student
-     */
 
     /// @notice Returns the metadata URI for a given token ID.
     /// @param tokenId The ID of the certificate token.
@@ -200,8 +147,8 @@ contract HackCertificate is ERC721, Ownable {
         _burn(tokenId);
     }
 
-    /**
-     * Used to prevent the student from transferring their certificate to another user
+        /**
+     * @notice To prevent the student from transferring their certificate to another user
      * @param from Ignored parameter
      * @param to Ignored parameter
      * @param tokenId Ignored parameter
@@ -212,7 +159,7 @@ contract HackCertificate is ERC721, Ownable {
     }
 
     /**
-     * Used to prevent the student from transferring their certificate to another user
+     * @notice To prevent the student from transferring their certificate to another user
      * @param from Ignored parameter
      * @param to Ignored parameter
      * @param tokenId Ignored parameter

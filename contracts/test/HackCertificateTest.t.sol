@@ -1,20 +1,13 @@
-// License
 // SPDX-License-Identifier: MIT
-
-// Compiler Solidity version
 pragma solidity ^0.8.24;
 
-// Libreries
 import "forge-std/Test.sol";
 import "../src/HackCertificate.sol";
 
-// Contract
 /// @title HackCertificateTest
 /// @notice Unit tests for the HackCertificate smart contract.
 /// @dev Uses Foundry's forge-std Test utilities for setup, assertions, and cheatcodes.
 contract HackCertificateTest is Test {
-    
-    // Variables
     HackCertificate hackCertificate;
 
     /// @notice The contract owner (admin).
@@ -31,9 +24,7 @@ contract HackCertificateTest is Test {
 
     /// @notice Address of the student receiving certificates.
     address public randomStudent = vm.addr(5);
-    address public randomStudent2 = vm.addr(6);
 
-    // Functions
     /// @notice Deploys the HackCertificate contract and authorizes an issuer before each test.
     function setUp() public {
         vm.startPrank(admin);
@@ -42,10 +33,6 @@ contract HackCertificateTest is Test {
         vm.stopPrank();
         assertEq(hackCertificate.owner(), admin);
     }
-
-    /**
-     * Used to prevent a non-administrator from giving another user permission to issue certificates.
-     */
 
     // --- Owner functions (authorize/revoke issuers) ---
 
@@ -64,10 +51,6 @@ contract HackCertificateTest is Test {
         hackCertificate.authorizeIssuer(unauthorizedIssuer);
         vm.stopPrank();
     }
-
-    /**
-     * Used to verify that an authorized educator can correctly issue a certificate.
-     */
 
     /// @notice Verifies that only the owner can revoke an issuer's authorization.
     function testShouldOnlyAllowOwnerToRevokeIssuer() public {
@@ -94,10 +77,6 @@ contract HackCertificateTest is Test {
         assertEq(1, tokenId1);
         assertEq(2, tokenId2);
     }
-    
-    /**
-     * Used to prevent an unauthorized educator from issuing a certificate
-     */
 
     /// @notice Ensures that an unauthorized address cannot issue a certificate.
     function testShouldNotAllowToIssueCertificateIfNotAuthorized() public {
@@ -119,10 +98,6 @@ contract HackCertificateTest is Test {
         vm.stopPrank();
     }
 
-    /**
-     * Used to verify that the issued certificate is correctly stored in the blockchain
-     */
-
     // --- Verify Certificate ---
 
     /// @notice Confirms that verifyCertificate returns the correct stored certificate data.
@@ -139,23 +114,12 @@ contract HackCertificateTest is Test {
         assertEq(c.studentName, "Ramdonlito");
     }
 
-    /**
-     * Used to verify that the contract reverts in case the certificate does not exist
-     */
-
     /// @notice Ensures verification fails for a non-existent certificate.
     function testShouldRevertIfCertificateDoesNotExist() public {
         vm.expectRevert();
         hackCertificate.verifyCertificate(0);
     }
 
-    /**
-     * Used to prevent a revoked educator from issuing a certificate
-     */
-
-    function testRevokedIssuerCannotMintAnymore() public {
-        vm.startPrank(admin);
-        hackCertificate.revokeIssuer(authorizedIssuer);
     // --- Revoke Certificate ---
 
     /// @notice Confirms that the issuer can revoke a certificate they issued.
@@ -170,11 +134,6 @@ contract HackCertificateTest is Test {
         vm.stopPrank();
     }
 
-    /**
-     * Used to verify that only the admin can revoke an educator
-     */
-
-    function testOnlyAdminCanRevokedIssuers() public {
     /// @notice Ensures that revocation fails if called by neither the owner nor the issuer.
     function testRevokeCertificateUnauthorizedFails() public {
         vm.startPrank(authorizedIssuer);
@@ -195,78 +154,6 @@ contract HackCertificateTest is Test {
         vm.stopPrank();
     }
 
-    /**
-     * Used to verify that the certificate is revoked correctly
-     */
-
-    function testShouldRevokeCertificate() public {
-   
-    vm.startPrank(authorizedIssuer);
-    uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
-    vm.stopPrank();
-    assertEq(tokenId1, 1);
-
-    
-    vm.startPrank(authorizedIssuer);
-    hackCertificate.revokeCertificate(tokenId1);
-    vm.stopPrank();
-
-    
-    vm.expectRevert("Certificate does not exist");
-    hackCertificate.verifyCertificate(tokenId1);
-}
-
-    /**
-     * Used to verify that the certificate is not revoked if the educator is not authorized
-     */
-
-    function testShouldNotRevokeCertificate() public {
-   
-    vm.startPrank(authorizedIssuer);
-    uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Juan", "Solidity");
-    vm.stopPrank();
-    assertEq(tokenId1, 1);
-
-    
-    vm.startPrank(unauthorizedIssuer);
-    
-    vm.expectRevert();
-    hackCertificate.revokeCertificate(tokenId1);
-    vm.stopPrank();
-
-}
-
-    /**
-     * Used to verify that the student cannot transfer their certificate
-     */
-
-    function testStudentCanNotTransferHisCertificate() public {
-        vm.startPrank(authorizedIssuer);
-        uint256 tokenId1 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Pentesting");
-        uint256 tokenId2 = hackCertificate.issueCertificate(randomStudent, "Ramdonlito", "Quality Assurance");
-        vm.stopPrank();
-        assertEq(1, tokenId1);
-        assertEq(2, tokenId2);
-
-        vm.startPrank(randomStudent);
-        vm.expectRevert();
-        hackCertificate.transferFrom(msg.sender, randomStudent2, tokenId1);
-        vm.stopPrank();  
-
-        vm.startPrank(randomStudent);
-        vm.expectRevert();
-        hackCertificate.safeTransferFrom(msg.sender, randomStudent2, tokenId2);
-        vm.stopPrank();   
-
-        vm.startPrank(randomStudent);
-        vm.expectRevert();
-        hackCertificate.safeTransferFrom(msg.sender, randomStudent2, tokenId2, bytes("Test"));
-        vm.stopPrank();          
-
-    }   
-
-}
-
     /// @notice Checks that tokenURI returns the correct value for an existing token.
     function testTokenURIShouldReturnCorrectValue() public {
         vm.startPrank(authorizedIssuer);
@@ -281,5 +168,18 @@ contract HackCertificateTest is Test {
     function testTokenURIRevertsIfNonExistentToken() public {
         vm.expectRevert();
         hackCertificate.tokenURI(999);
+    }
+
+    /// @notice Ensures tokens cannot be transfered once issued.
+    function testTokensCannotBeTransfered() public {
+        address from = vm.addr(1);
+        address to = vm.addr(2);
+        uint256 randomTokenId = 0;
+        
+        vm.expectRevert("This NFT cannot be transferred.");
+        hackCertificate.transferFrom(from, to, randomTokenId);
+
+        vm.expectRevert("This NFT cannot be transferred.");
+        hackCertificate.safeTransferFrom(from, to, randomTokenId, "");
     }
 }
