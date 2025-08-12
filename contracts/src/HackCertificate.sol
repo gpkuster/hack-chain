@@ -146,4 +146,27 @@ contract HackCertificate is ERC721, Ownable {
         delete _tokenURIs[tokenId];
         _burn(tokenId);
     }
+
+        /**
+     * @notice To prevent the student from transferring their certificate to another user
+     * @param from Ignored parameter
+     * @param to Ignored parameter
+     * @param tokenId Ignored parameter
+     */
+
+    function transferFrom(address from, address to, uint256 tokenId) public virtual pure override {
+        revert("This NFT cannot be transferred.");
+    }
+
+    /**
+     * @notice To prevent the student from transferring their certificate to another user
+     * @param from Ignored parameter
+     * @param to Ignored parameter
+     * @param tokenId Ignored parameter
+     * @param data Ignored parameter
+     */
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual pure override {
+        revert("This NFT cannot be transferred.");
+    }
 }

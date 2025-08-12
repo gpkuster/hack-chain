@@ -169,4 +169,17 @@ contract HackCertificateTest is Test {
         vm.expectRevert();
         hackCertificate.tokenURI(999);
     }
+
+    /// @notice Ensures tokens cannot be transfered once issued.
+    function testTokensCannotBeTransfered() public {
+        address from = vm.addr(1);
+        address to = vm.addr(2);
+        uint256 randomTokenId = 0;
+        
+        vm.expectRevert("This NFT cannot be transferred.");
+        hackCertificate.transferFrom(from, to, randomTokenId);
+
+        vm.expectRevert("This NFT cannot be transferred.");
+        hackCertificate.safeTransferFrom(from, to, randomTokenId, "");
+    }
 }
