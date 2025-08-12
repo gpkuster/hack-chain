@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Wallet, Menu, X } from 'lucide-react';
+import { Wallet, Menu, X, UserPlus } from 'lucide-react';
 import hackChainLogo from "/images/logoHackchain.png";
 
 const Navbar = () => {
@@ -30,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 animate-in slide-in-from-top duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -61,8 +62,19 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Wallet Button */}
-          <div className="hidden md:block">
+          {/* Action Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Get Started Button */}
+            <Link to="/register/user">
+              <Button 
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              >
+                <UserPlus className="w-4 h-4 mr-2" />
+                Get Started
+              </Button>
+            </Link>
+            
+            {/* Wallet Button */}
             <Button variant="outline" className="glass-hover border-white/20 text-foreground">
               <Wallet className="w-4 h-4 mr-2" />
               Connect Wallet
@@ -95,7 +107,19 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="px-3 py-2">
+              
+              {/* Mobile Action Buttons */}
+              <div className="px-3 py-2 space-y-2">
+                <Link to="/register/user" className="block">
+                  <Button 
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Get Started
+                  </Button>
+                </Link>
+                
                 <Button variant="outline" className="w-full glass-hover border-white/20">
                   <Wallet className="w-4 h-4 mr-2" />
                   Connect Wallet

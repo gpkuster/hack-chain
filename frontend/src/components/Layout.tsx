@@ -1,6 +1,7 @@
 import React from 'react';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import FloatingElements from '@/components/FloatingElements';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 import Footer from './Footer';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -13,6 +14,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
         <div className="relative z-10">
         {children}
       <Footer />
+      <ScrollToTopButton />
     </div>
   </div>
   );

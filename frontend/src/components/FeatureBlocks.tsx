@@ -43,20 +43,21 @@ const FeatureBlocks = () => {
   return (
     <section id="certificates" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Why Choose <span className="gradient-text">HackChain</span>?
+        <div className="text-center mb-16 animate-in fade-in duration-700 slide-in-from-top">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            Why Choose <span className="gradient-text">HackChain</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Experience the future of professional certification with blockchain-powered credentials
+            The future of cybersecurity certification is here. Built on blockchain, 
+            verified by experts, and recognized globally.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="glass rounded-2xl p-8 glass-hover group transition-all duration-300 hover:scale-105"
+            <div 
+              key={index} 
+              className={`glass rounded-2xl p-8 glass-hover group animate-in fade-in duration-700 slide-in-from-bottom delay-${100 + index * 100}`}
             >
               <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                 <feature.Icon className="w-8 h-8 text-white" />
