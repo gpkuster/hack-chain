@@ -1,5 +1,3 @@
-//auth types
-
 //this is the user registration request
 export interface UserRegistrationRequest{
     name: string;

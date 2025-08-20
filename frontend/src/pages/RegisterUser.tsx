@@ -1,11 +1,12 @@
+
 import { Link } from "react-router-dom";
 import { ArrowLeft, Shield, Users, Award } from "lucide-react";
-
 import { UserRegistrationForm } from "@/components/auth/userRegistrationForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import BackgroundAnimation from "@/components/BackgroundAnimation";
 import FloatingElements from "@/components/FloatingElements";
+import hackChainLogo from "/images/logoHackchain.png";
 
 export function RegisterUser() {
   return (
@@ -19,30 +20,27 @@ export function RegisterUser() {
       
       {/* Page Content with entrance animations */}
       <div className="relative z-20 animate-in fade-in duration-700">
-        {/* Navigation Header */}
-        <div className="container mx-auto px-4 py-6 animate-in slide-in-from-top duration-500">
-        <div className="flex items-center justify-between">
-          {/* Logo and Brand - Left Side */}
-          <div className="flex items-center gap-3">
-            <img 
-              src="/images/logoHackchain.png" 
-              alt="Hack Chain" 
-              className="h-8 w-auto"
-            />
-            <span className="text-xl font-bold text-white">
-              Hack Chain
-            </span>
+        {/* Sticky header with full-width border, consistent with RegisterLanding */}
+        <div className="z-30 w-full border-b border-white/10 bg-background/80 backdrop-blur mb-6" style={{minHeight: '56px'}}>
+    <div className="flex items-center justify-between max-w-6xl mx-auto px-4 pt-6 pb-3">
+            {/* Logo and Brand */}
+            <div className="flex items-center gap-2 justify-start">
+              <img
+                src={hackChainLogo}
+                alt="Hack Chain Logo"
+                className="h-9 w-9 md:h-10 md:w-10 drop-shadow-lg"
+              />
+              <span className="text-xl md:text-2xl font-bold gradient-text drop-shadow-lg tracking-tight">
+                Hack Chain
+              </span>
+            </div>
+            {/* Back to RegisterLanding */}
+            <Link to="/register" className="flex items-center gap-2 group">
+              <span className="text-sm md:text-base font-medium text-muted-foreground group-hover:text-primary transition-colors">Back to Register</span>
+              <ArrowLeft className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            </Link>
           </div>
-          
-          {/* Back Button - Right Side */}
-          <Link to="/">
-            <Button variant="ghost" className="gap-2 hover:bg-slate-800 text-slate-300 hover:text-white transition-all duration-200 hover:scale-105">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Button>
-          </Link>
         </div>
-      </div>
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 pb-12 animate-in slide-in-from-bottom duration-700 delay-150">
