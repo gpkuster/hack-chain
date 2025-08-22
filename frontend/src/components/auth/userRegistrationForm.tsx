@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { Eye, EyeOff, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Eye, EyeOff, Loader2, CheckCircle, AlertCircle, Check } from "lucide-react";
 
 import { Button } from "../ui/button";
 import {
@@ -19,11 +19,16 @@ import { Alert, AlertDescription } from "../ui/alert";
 import { userRegistrationSchema } from "../../lib/validations/auth";
 import { useUserRegistration } from "../../hooks/userUserRegistration";
 import type { UserRegistrationFormData } from "../../lib/validations/auth";
+import "./autofill-fix.css";
+import "./autofill-fix.css";
 
 export function UserRegistrationForm() {
   // Password visibility state
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Track field interactions
+  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
 
   // Registration hook
   const mutation = useUserRegistration();
@@ -42,6 +47,20 @@ export function UserRegistrationForm() {
     },
   });
 
+  // Watch form values for real-time validation
+  const watchedValues = form.watch();
+
+  // Handle field touch
+  const handleFieldTouch = (fieldName: string) => {
+    setTouchedFields(prev => ({ ...prev, [fieldName]: true }));
+  };
+
+  // Check if field is valid
+  const isFieldValid = (fieldName: keyof UserRegistrationFormData) => {
+    const fieldErrors = form.formState.errors;
+    return !fieldErrors[fieldName] && watchedValues[fieldName] && touchedFields[fieldName];
+  };
+
   // Handle form submission
   const onSubmit = (data: UserRegistrationFormData) => {
     register(data);
@@ -51,15 +70,16 @@ export function UserRegistrationForm() {
   const handleReset = () => {
     form.reset();
     mutation.reset();
+    setTouchedFields({});
   };
 
   // Show success message if registration completed
   if (isSuccess) {
     return (
       <div className="space-y-6">
-        <Alert className="border-green-200 bg-green-50">
-          <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertDescription className="text-green-800">
+        <Alert className="border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-pink-500/10">
+          <CheckCircle className="h-4 w-4 text-purple-400" />
+          <AlertDescription className="text-purple-200">
             Account created successfully! You can now log in.
           </AlertDescription>
         </Alert>
@@ -68,7 +88,7 @@ export function UserRegistrationForm() {
           <Button 
             onClick={handleReset}
             variant="outline"
-            className="w-full max-w-sm"
+            className="w-full max-w-sm border-purple-500/30 text-purple-400 hover:bg-purple-500/10"
           >
             Register Another User
           </Button>
@@ -81,7 +101,7 @@ export function UserRegistrationForm() {
     <div className="space-y-6">
       {/* Error Alert */}
       {isError && error && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="border-red-500/30 bg-red-500/10">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{error.message}</AlertDescription>
         </Alert>
@@ -96,13 +116,20 @@ export function UserRegistrationForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel className="text-slate-300">First Name</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter your first name"
-                    disabled={isLoading}
-                    {...field} 
-                  />
+                  <div className="relative">
+                    <Input 
+                      placeholder="Enter your first name"
+                      disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('name') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('name')}
+                      {...field} 
+                    />
+                    {isFieldValid('name') && (
+                      <Check className="absolute right-3 top-3 h-4 w-4 text-purple-400" />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,13 +142,20 @@ export function UserRegistrationForm() {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel className="text-slate-300">Last Name</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter your last name"
-                    disabled={isLoading}
-                    {...field} 
-                  />
+                  <div className="relative">
+                    <Input 
+                      placeholder="Enter your last name"
+                      disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('lastName') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('lastName')}
+                      {...field} 
+                    />
+                    {isFieldValid('lastName') && (
+                      <Check className="absolute right-3 top-3 h-4 w-4 text-purple-400" />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -134,17 +168,26 @@ export function UserRegistrationForm() {
             name="age"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Age</FormLabel>
+                <FormLabel className="text-slate-300">Age</FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Enter your age"
-                    disabled={isLoading}
-                    {...field} 
-                  />
+                  <div className="relative">
+                    <Input 
+                      placeholder="Enter your age"
+                      disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('age') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('age')}
+                      {...field} 
+                    />
+                    {isFieldValid('age') && (
+                      <Check className="absolute right-3 top-3 h-4 w-4 text-purple-400" />
+                    )}
+                  </div>
                 </FormControl>
-                <FormDescription>
-                  Must be between 18 and 100 years old
-                </FormDescription>
+                {touchedFields.age && (
+                  <FormDescription className="text-xs text-slate-400">
+                    Must be between 18 and 100 years old
+                  </FormDescription>
+                )}
                 <FormMessage />
               </FormItem>
             )}
@@ -156,14 +199,21 @@ export function UserRegistrationForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-slate-300">Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="email"
-                    placeholder="Enter your email address"
-                    disabled={isLoading}
-                    {...field} 
-                  />
+                  <div className="relative">
+                    <Input 
+                      type="email"
+                      placeholder="Enter your email address"
+                      disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('email') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('email')}
+                      {...field} 
+                    />
+                    {isFieldValid('email') && (
+                      <Check className="absolute right-3 top-3 h-4 w-4 text-purple-400" />
+                    )}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -176,34 +226,27 @@ export function UserRegistrationForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
+                <FormLabel className="text-slate-300">Password</FormLabel>
+                                <FormControl>
                   <div className="relative">
                     <Input 
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Create a strong password"
+                      type="password"
+                      placeholder="Create a secure password"
                       disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('password') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('password')}
                       {...field} 
                     />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() => setShowPassword(!showPassword)}
-                      disabled={isLoading}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </Button>
+                    {isFieldValid('password') && (
+                      <Check className="absolute right-3 top-3 h-4 w-4 text-purple-400" />
+                    )}
                   </div>
                 </FormControl>
-                <FormDescription>
-                  Must contain uppercase, lowercase, and a number (min 8 characters)
-                </FormDescription>
+                {touchedFields.password && (
+                  <FormDescription className="text-xs text-slate-400">
+                    Must contain uppercase, lowercase, and a number (min 8 characters)
+                  </FormDescription>
+                )}
                 <FormMessage />
               </FormItem>
             )}
@@ -215,29 +258,36 @@ export function UserRegistrationForm() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel className="text-slate-300">Confirm Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm your password"
                       disabled={isLoading}
+                      className={`input-autofill-dark ${isFieldValid('confirmPassword') ? 'input-valid' : ''}`}
+                      onFocus={() => handleFieldTouch('confirmPassword')}
                       {...field} 
                     />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      disabled={isLoading}
-                    >
-                      {showConfirmPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
+                    <div className="absolute right-3 top-3 flex items-center gap-1">
+                      {isFieldValid('confirmPassword') && (
+                        <Check className="h-4 w-4 text-purple-400" />
                       )}
-                    </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-4 w-4 p-0 hover:bg-transparent"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        disabled={isLoading}
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4 text-slate-400" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-slate-400" />
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -248,7 +298,7 @@ export function UserRegistrationForm() {
           {/* Submit Button */}
           <Button 
             type="submit" 
-            className="w-full"
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 mt-6 transition-all duration-300 hover:scale-105"
             disabled={isLoading}
           >
             {isLoading ? (

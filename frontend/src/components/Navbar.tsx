@@ -65,7 +65,7 @@ const Navbar = () => {
           {/* Action Buttons */}
           <div className="hidden md:flex items-center gap-3">
             {/* Get Started Button */}
-            <Link to="/register/user">
+            <Link to="/register">
               <Button 
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
               >
@@ -110,7 +110,7 @@ const Navbar = () => {
               
               {/* Mobile Action Buttons */}
               <div className="px-3 py-2 space-y-2">
-                <Link to="/register/user" className="block">
+                <Link to="/register" className="block">
                   <Button 
                     className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 shadow-lg"
                     onClick={() => setIsMenuOpen(false)}

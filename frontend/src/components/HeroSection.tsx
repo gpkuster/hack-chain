@@ -11,14 +11,14 @@ const HeroSection = () => {
             Show your talent in the{' '}
             <span className="gradient-text">Web3 era</span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto leading-relaxed animate-in fade-in duration-700 delay-400 slide-in-from-bottom">
-            Revolutionize cybersecurity certification with blockchain technology. 
-            Earn NFT-based certificates that prove your expertise in ethical hacking 
+            Revolutionize cybersecurity certification with blockchain technology.
+            Earn NFT-based certificates that prove your expertise in ethical hacking
             and cybersecurity, verified on the blockchain and recognized by top recruiters worldwide.
           </p>
-          
-                    {/* Three-tier button hierarchy */}
+
+          {/* Three-tier button hierarchy */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-in fade-in duration-700 delay-600 slide-in-from-bottom">
             {/* Primary CTA */}
             <Link to="/register">
@@ -27,30 +27,37 @@ const HeroSection = () => {
                 Get Started Free
               </Button>
             </Link>
-            
+
             {/* Secondary CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 animate-in fade-in duration-700 delay-800 slide-in-from-bottom">
-              <Button 
-                variant="outline" 
-                size="lg" 
+
+              <Button
+                variant="outline"
+                size="lg"
                 className="border-purple-500/50 text-purple-300 hover:bg-purple-500/10 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:border-purple-400"
               >
                 <Award className="mr-2 h-4 w-4" />
                 View Certificates
               </Button>
-              
-              <Button 
-                variant="ghost" 
-                size="lg" 
-                className="text-muted-foreground hover:text-white px-6 py-3 rounded-full font-medium transition-all duration-300"
-              >
-                <PlayCircle className="mr-2 h-4 w-4" />
-                Watch Demo
-              </Button>
+
+
+
+              <Link to="nft-creator">
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="text-muted-foreground hover:text-white px-6 py-3 rounded-full font-medium transition-all duration-300"
+                >
+                  <PlayCircle className="mr-2 h-4 w-4" />
+                  Watch Demo
+                </Button>
+
+              </Link>
+
             </div>
           </div>
-          
-                    {/* Statistics */}
+
+          {/* Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto animate-in fade-in duration-700 delay-1000 slide-in-from-bottom">
             <div className="glass rounded-2xl p-6 glass-hover animate-in fade-in duration-700 delay-1100 slide-in-from-left">
               <div className="text-3xl font-bold text-purple-400 mb-2">10K+</div>
