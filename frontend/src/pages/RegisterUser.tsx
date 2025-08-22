@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shield, Users, Award } from "lucide-react";
+import { ArrowLeft, User, Users, Building, Shield } from "lucide-react";
 import { UserRegistrationForm } from "@/components/auth/userRegistrationForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -60,47 +59,36 @@ export function RegisterUser() {
               </p>
             </div>
 
-            {/* Features */}
+            {/* Features - Solo Student */}
             <div className="space-y-6">
-              <div className="flex items-start gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 border border-blue-500/30">
-                  <Shield className="h-6 w-6 text-blue-400" />
+              {/* Student - Destacado */}
+              <div className="flex items-start gap-4 group p-6 glass rounded-xl border border-purple-500/30 hover:border-purple-500/50 transition-all duration-300">
+                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-lg">
+                  <User className="h-8 w-8 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-white">
-                    Blockchain Verified
-                  </h3>
-                  <p className="text-slate-300">
-                    Your certificates are stored as NFTs, making them immutable and verifiable anywhere.
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Student Experience</h3>
+                  <p className="text-slate-300 mb-4">
+                    Join thousands of students earning blockchain-verified certificates in cybersecurity and ethical hacking.
                   </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 bg-green-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 border border-green-500/30">
-                  <Award className="h-6 w-6 text-green-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">
-                    Industry Recognition
-                  </h3>
-                  <p className="text-slate-300">
-                    Certificates from verified educators and institutions in cybersecurity.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 group">
-                <div className="flex-shrink-0 w-12 h-12 bg-purple-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 border border-purple-500/30">
-                  <Users className="h-6 w-6 text-purple-400" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">
-                    Connect with Recruiters
-                  </h3>
-                  <p className="text-slate-300">
-                    Showcase your verified skills to employers and cybersecurity recruiters.
-                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                      <span className="text-sm text-slate-400">Complete hands-on cybersecurity courses</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                      <span className="text-sm text-slate-400">Earn NFT certificates that prove your skills</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                      <span className="text-sm text-slate-400">Build a verifiable professional portfolio</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+                      <span className="text-sm text-slate-400">Connect directly with top recruiters</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -120,14 +108,14 @@ export function RegisterUser() {
 
           {/* Right Side - Registration Form */}
           <div className="flex justify-center animate-in slide-in-from-right duration-700 delay-500">
-            <Card className="w-full max-w-md shadow-2xl hover:shadow-3xl transition-all duration-300 border border-slate-700/50 bg-slate-900/80 backdrop-blur-xl">
+            <Card className="w-full max-w-md shadow-2xl hover:shadow-3xl transition-all duration-300 border border-purple-500/30 hover:border-purple-500/50 bg-gradient-to-br from-slate-900/95 via-purple-900/20 to-slate-900/95 backdrop-blur-xl">
               <CardHeader className="space-y-1 text-center">
                 <div className="flex justify-center mb-2">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                    <Shield className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                    <User className="h-6 w-6 text-white" />
                   </div>
                 </div>
-                <CardTitle className="text-2xl font-bold text-white">
+                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   Create Student Account
                 </CardTitle>
                 <CardDescription className="text-slate-400">
