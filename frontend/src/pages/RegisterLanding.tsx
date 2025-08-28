@@ -94,13 +94,13 @@ const RegisterLanding = () => {
             </Card>
 
           {/* Educator Card */}
-            <Card className="relative overflow-hidden glass glass-hover border-blue-500/30 hover:border-cyan-500/50 transition-all duration-300">
+            <Card className="relative overflow-hidden glass glass-hover border-blue-500/30 hover:border-cyan-500/50 transition-all duration-300 neon-glow-subtle">
               <CardHeader className="space-y-4 text-center">
-                <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 neon-glow">
+                <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Award className="h-8 w-8 text-white" />
                 </div>
                 <div className="space-y-2">
-                  <CardTitle className="text-xl text-blue-400">Educator</CardTitle>
+                  <CardTitle className="text-xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Educator</CardTitle>
                   <CardDescription className="text-muted-foreground">
                     Issue verified certificates and build your teaching reputation
                   </CardDescription>
@@ -123,8 +123,7 @@ const RegisterLanding = () => {
                 </div>
                 <Link to="/register/issuer" className="block">
                   <Button 
-                    variant="outline" 
-                    className="w-full gap-2 glass glass-hover border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
+                    className="w-full gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-500/90 hover:to-cyan-500/90 neon-glow transition-all duration-300 hover:scale-105"
                   >
                     Join as Educator
                     <ArrowRight className="h-4 w-4" />
@@ -139,13 +138,13 @@ const RegisterLanding = () => {
             </Card>
 
           {/* Recruiter Card */}
-            <Card className="relative overflow-hidden glass glass-hover border-green-500/30 hover:border-emerald-500/50 transition-all duration-300">
+            <Card className="relative overflow-hidden glass glass-hover border-green-500/30 hover:border-emerald-500/50 transition-all duration-300 neon-glow-subtle">
               <CardHeader className="space-y-4 text-center">
                 <div className="w-16 h-16 mx-auto rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Building className="h-8 w-8 text-white" />
                 </div>
                 <div className="space-y-2">
-                  <CardTitle className="text-xl text-green-400">Recruiter</CardTitle>
+                  <CardTitle className="text-xl bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Recruiter</CardTitle>
                   <CardDescription className="text-muted-foreground">
                     Find and verify top cybersecurity talent with confidence
                   </CardDescription>
@@ -168,8 +167,7 @@ const RegisterLanding = () => {
                 </div>
                 <Link to="/register/recruiter" className="block">
                   <Button 
-                    variant="outline" 
-                    className="w-full gap-2 glass glass-hover border-green-500/30 text-green-400 hover:bg-green-500/10 transition-all duration-300"
+                    className="w-full gap-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-500/90 hover:to-emerald-500/90 neon-glow transition-all duration-300 hover:scale-105"
                   >
                     Join as Recruiter
                     <ArrowRight className="h-4 w-4" />
