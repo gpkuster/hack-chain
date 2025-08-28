@@ -37,7 +37,7 @@ export function RecruiterRegistrationForm() {
   const form = useForm<RecruiterRegistrationFormData>({
     resolver: zodResolver(recruiterRegistrationSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
       lastName: "",
       email: "",
       password: "",
@@ -108,10 +108,10 @@ export function RecruiterRegistrationForm() {
       {/* Registration Form */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {/* Name Field */}
+          {/* First Name Field */}
           <FormField
             control={form.control}
-            name="name"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-slate-300">First Name</FormLabel>
@@ -120,11 +120,11 @@ export function RecruiterRegistrationForm() {
                     <Input 
                       placeholder="Enter your first name"
                       disabled={isLoading}
-                      className={`input-autofill-dark recruiter-input ${isFieldValid('name') ? 'input-valid recruiter-input' : ''}`}
-                      onFocus={() => handleFieldTouch('name')}
+                      className={`input-autofill-dark recruiter-input ${isFieldValid('firstName') ? 'input-valid recruiter-input' : ''}`}
+                      onFocus={() => handleFieldTouch('firstName')}
                       {...field} 
                     />
-                    {isFieldValid('name') && (
+                    {isFieldValid('firstName') && (
                       <Check className="absolute right-3 top-3 h-4 w-4 text-green-400" />
                     )}
                   </div>
