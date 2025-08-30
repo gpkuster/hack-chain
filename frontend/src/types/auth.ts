@@ -7,6 +7,14 @@ export interface UserRegistrationRequest{
     password: string;
 }
 
+//this is the recruiter registration request  
+export interface RecruiterRegistrationRequest{
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
 //this is the user registration response
 export interface UserRegistrationResponse{
     message: string;
@@ -19,11 +27,55 @@ export interface UserRegistrationResponse{
     };
 }
 
+//this is the recruiter registration response
+export interface RecruiterRegistrationResponse{
+    message: string;
+    recruiter:{
+        name: string;
+        lastName: string;
+        email: string;
+    };
+}
+
+//this is the educator registration request  
+export interface EducatorRegistrationRequest{
+    name: string;
+    email: string;
+    password: string;
+}
+
+//this is the educator registration response
+export interface EducatorRegistrationResponse{
+    message: string;
+    issuer:{
+        name: string;
+        email: string;
+        walletAddress: string;
+    };
+}
+
 //data form 
 export interface UserRegistrationFormData {
     name: string;
     lastName: string;
     age: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+//recruiter form data
+export interface RecruiterRegistrationFormData {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+//educator form data
+export interface EducatorRegistrationFormData {
+    name: string;
     email: string;
     password: string;
     confirmPassword: string;

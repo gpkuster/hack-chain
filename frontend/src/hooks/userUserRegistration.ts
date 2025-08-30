@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { 
-    UserRegistrationFormData, 
-    UserRegistrationRequestData,
-    transformFormDataToRequest
+    userRegistrationSchema,
+    transformFormDataToRequest,
+    type UserRegistrationFormData 
 } from '../lib/validations/auth';
 import { 
     UserRegistrationResponse,
@@ -14,19 +14,22 @@ import {
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 //API function register a new user
-const registerUser = async(userData: UserRegistrationRequestData): Promise<UserRegistrationResponse> => {
-    const response = await fetch(`${API_BASE_URL}/api/user/register`, {
+const registerUser = async(formData: UserRegistrationFormData): Promise<UserRegistrationResponse> => {
+    // Transform and validate form data
+    const validatedData = userRegistrationSchema.parse(formData);
+    const requestData = transformFormDataToRequest(validatedData);
+
+    const response = await fetch(`${API_BASE_URL}/api/student/register`, {
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
         }, 
-        body: JSON.stringify(userData),
+        body: JSON.stringify(requestData),
     });
 
+    const data = await response.json();
 
-    const data= await response.json();
-
-    //handle http erros
+    //handle http errors
     if (!response.ok) {
         if(isApiError(data)){
             throw new Error(data.error);
@@ -39,19 +42,13 @@ const registerUser = async(userData: UserRegistrationRequestData): Promise<UserR
     }
 
     return data as UserRegistrationResponse;
-
 };
-
 
 //custom hook for user Registration
 export const useUserRegistration = () => {
     return useMutation({
-        mutationFn: (formData:UserRegistrationFormData) => {
-            //tranform data for backend request
-            const requestData = transformFormDataToRequest(formData);
-            return registerUser(requestData);
-        },
-        onSuccess: (data:UserRegistrationResponse) => {
+        mutationFn: registerUser,
+        onSuccess: (data: UserRegistrationResponse) => {
             console.log("User registered successfully:", data.user.email);
         },
         onError: (error: Error) => {
